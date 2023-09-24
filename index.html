@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+    <title>Spectroscope</title>
+   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+    <link rel="stylesheet" href="./spectroscope.css">
+<style>
+        /* Center the plot horizontally */
+        #draw_rays_CD {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+             width: 100%; /* Set the desired width */
+            height: 100vh; /* Adjust the height as needed */
+        }
+                #draw_rays_DVD {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+             width: 100%; /* Set the desired width */
+            height: 100vh; /* Adjust the height as needed */
+        }
+
+           #plot1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+             width: 100%; /* Set the desired width */
+            height: 100vh; /* Adjust the height as needed */
+        }
+
+         #plot_templete {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+             width: 100%; /* Set the desired width */
+            height: 100vh; /* Adjust the height as needed */
+        }
+
+        #plot_tube {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+             width: 100%; /* Set the desired width */
+            height: 100vh; /* Adjust the height as needed */
+        }
+
+
+
+
+    </style>
+</head>
+
+
+
+
+<body>
+    
+<div class="block_container"  style="background-color: #00b5e2; margin-left:10%; margin-right:10%;">   
+ <p> </p>
+    <p> </p>
+    <br>
+
+        <h1>Make your Own Spectroscope</h1>
+
+     
+        <h2> CIIEC-BUAP</h2>
+
+      <p style="font-size: 30px; margin-left: 80%;">September, 23rd, 2023 </p>
+        <p style="font-size: 20px; margin-left: 80%;"><a href="https://github.com/lvillasen/Spectroscope/" >Source Code</a> </p>
+        
+        <hr>
+
+
+<p style="color:black;font-size:30px;">
+This app consists of three parts. 
+<br><br>
+
+The first part calculates the diffraction angles for a beam of light incident with a given angle on a difraction grating. 
+<br><br>
+The second part ilustrates how to construct a simple high-resolution spectroscope by using a tube and a CD or DVD. 
+<br><br>
+The third part allows the capture of the spectra with a webcam and its calibration.
+
+
+</p>
+<hr>
+
+<h2> 1. Calculation of Diffraction Angles</h2>
+
+<p style="color:black;font-size:30px;">
+</p>
+
+
+ 
+<label> Angle of Diffraction Grating (between 0 and 90 degrees):</label>
+<input type="text" class="styledGray" style="height:30px; width:50px" id="grating_angle"  value = "20" min="0" max="90" onchange="diffraction()">
+<br>
+<label> Wavelength for Red (nm):</label>
+<input type="text" step="any"  class="styledRed" style="height:30px; width:50px" id="lamda_red"  value = "611.0"  onchange="diffraction()">
+
+<label> Wavelength for Green (nm):</label>
+<input type="text" step="any"  class="styledGreen" style="height:30px; width:50px" id="lamda_green"  value = "546.1"  onchange="diffraction()">
+
+<label> Wavelength for Blue (nm)::</label>
+<input type="text" step="any"  class="styledBlue" style="height:30px; width:50px" id="lamda_blue"  value = "435.8"  onchange="diffraction()">
+<br>
+
+    <div class="block_container" style="width:100%; text-align: center;">
+<div id="plot_diffraction" style="width:100%;"></div>
+     <br><br>
+
+</div>
+
+<div  id="draw_rays_CD" ></div>
+
+ <br><br>
+     <div class="block_container" style="width:100%; text-align: center;">
+
+<div id="draw_rays_DVD" style="width:100%;"></div>
+
+
+        <hr>
+
+    
+<h2> 2. Construction of a Simple Spectroscope</h2>
+
+<p style="color:black;font-size:30px;">
+</p>
+
+
+
+ <label> Length of Tube (cm):</label>
+<input type="text" class="styledGray" style="height:30px; width:50px" id="tube_length"  value = "20" min="15" max="20" onchange="geometry ()">
+
+
+    <label> Diammeter of Tube (cm):</label>
+<input type="text" class="styledGray" style="height:30px; width:50px" id="tube_diammeter"  value = "5.4" min="2" max="10" onchange="geometry ()">
+
+
+
+
+    
+<div id="plot_tube" ></div>
+<br><br>
+<div id="plot_templete" ></div>
+    </div>
+    <br>
+    
+            <hr>
+
+<h2> 3. Acquisition and Calibration of Spectra</h2>
+
+
+
+
+
+       <div class="block_container" style="width:100%; text-align: center;">
+    
+
+ <input class="styledBlue" type="file" id="imageInput" accept="image/*" value="Upload Image" onclick="load();">
+
+ <input class="styledBlue" type="button" id="captureButton" value="Capture Image" onclick="frame()">
+     
+    <video id="webcam" style="width:100%; text-align: center;" autoplay></video>
+
+    <canvas id="canvas1" ;></canvas>
+
+    <br>
+    <div class="block_container" >
+    <label>           Flip</label>
+<input id="flip" type="checkbox" onchange="flip()">
+
+        
+<label>           Rotate</label>
+<input id="rotate" type="checkbox" onchange="rotate()">
+        <label for="Rotation Angle">Angle (between -360 and 360 degrees):</label>
+<input type="number" id="angle" name="rotation" value = "90" min="-360" max="360">
+
+    <canvas id="canvas2"></canvas>
+
+</div>
+
+ <br> <br>
+<div id="plot1" ></div>
+     <br><br>
+
+      <input class="styledBlue" type="button" id="calibrate" value="Calibrate" onclick="calibrate()">
+<br>
+<label>Index 1: </label>
+<input step="any"  class="styledGray" style="height:30px; width:50px"  id="index1" value="1" type="text">
+<label>Wavelength 1:   </label>
+<input step="any"  class="styledGray" style="height:30px; width:50px"  id="wavelength1" value="400" type="text" >
+
+     <br>
+
+<label>Index 2: </label>
+<input step="any"  class="styledGray" style="height:30px; width:50px"  id="index2" value="400" type="text" >
+<label>Wavelength 2:   </label>
+<input step="any"  class="styledGray" style="height:30px; width:50px" id="wavelength2" value="600" type="text" >
+   </div>
+
+     
+  
+
+    
+
+</body>
+
+<script src="./spectroscope.js"></script>
+</html>
