@@ -6,6 +6,6 @@ This web app describes the calculations and procedure to make a simple spectrosc
 
 Clone this repository and open index.html with a browser.
 
-### Demo
+## Live Demo
 
-https://ciiec.buap.mc/Make-your-Own-Spectroscope
+https://ciiec.buap.mx/Make-your-Own-Spectroscope
