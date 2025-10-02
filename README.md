@@ -8,4 +8,4 @@ Clone this repository and open index.html with a browser.
 
 ## Live Demo
 
-https://ciiec.buap.mx/Make-your-Own-Spectroscope
+https://ciiec.buap.mx/Spectrum1
